@@ -16,16 +16,16 @@ import { CdkDragDrop, DragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class AppComponent {
   title = 'Dev-intership';
-  // colornumber: number  = 0;
-
   squareColor: string = "lightblue"
   clickCount: number = 0
   undocolor: string[] = []
+  undoColorDragDrop1: string[] = []
   undoColorDragDrop: string[] = []
   maxUndoColor: number = 1
   redocolor: string[] = []
   redoColorDragDrop: string[] = []
   colors: string[] = []
+
 
   ClickChangeColor(): void {
     this.clickCount++;
@@ -61,8 +61,12 @@ export class AppComponent {
 
     for(let i = 0 ; i <= this.undocolor.length ; i++){
       let undo = this.undocolor[i]
-      this.undoColorDragDrop.push(undo);
+      this.undoColorDragDrop1.push(undo);
+
     }
+    this.undoColorDragDrop = this.undoColorDragDrop1
+
+
 
     for(let i = 0 ; i <= this.redocolor.length ; i++){
       let redo = this.redocolor[i]
