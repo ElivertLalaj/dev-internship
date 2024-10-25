@@ -16,11 +16,6 @@ import {MatTableModule} from '@angular/material/table';
     CdkDragHandle,
     MatSlideToggleModule,
     MatTableModule
-    
-
-  
-
-
   ],
   exports: [
     CommonModule,

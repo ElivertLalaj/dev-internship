@@ -1,113 +1,66 @@
-/* General styles */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
   }
   
   .square {
-    width: 150px;
-    height: 150px;
-    border-radius: 10px;
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    cursor: move;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .square:hover {
-    transform: scale(1.05);
+    font-size: 1.5em;
+    color: white;
+    border-radius: 8px;
   }
   
   .btn {
     padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    color: white;
-    border: none;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
+    font-size: 1em;
   }
   
   .material {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    gap: 40px;
   }
   
   .material-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
   }
   
   .icon {
     font-size: 24px;
     cursor: pointer;
-    transition: color 0.2s ease;
+    margin-bottom: 10px;
   }
   
-  .icon:hover {
-    color: #007bff;
-  }
-  
-  .square-small {
-    width: 50px;
-    height: 50px;
+  .large-square {
+    width: 80px;
+    height: 80px;
     border-radius: 8px;
-    cursor: move;
+    margin-bottom: 10px;
   }
   
   .example-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-    background-color: #e9ecef;
-    border-radius: 8px;
+    gap: 5px;
+    max-width: 200px;
+    margin-top: 10px;
   }
   
   .example-box {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 14px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    cursor: move;
-    transition: transform 0.2s ease;
-  }
-  
-  .example-box:hover {
-    transform: translateY(-3px);
-  }
-  
-  .undo_square,
-  .redo_square {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 0.8em;
+    border-radius: 4px;
   }
   

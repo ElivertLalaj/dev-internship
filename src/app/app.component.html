@@ -1,35 +1,30 @@
-<router-outlet>
+<div class="container">
+  <div class="square" [style.backgroundColor]="squareColor" cdkDrag>
+    <span>{{ clickCount }}</span>
+  </div>
 
-  <div class="container">
-    <!-- Square that changes color -->
-    <div class="square" [style.backgroundColor]="squareColor" cdkDrag>
-      <span>{{ clickCount }}</span>
-    </div>
-  
-    <!-- Button to change the square color -->
-    <button class="btn btn-success" (click)="ClickChangeColor()">Color</button>
-  
-    <!-- Undo and Redo panel -->
-    <div class="material">
-      <div class="material-section">
-        <!-- Undo section -->
-        <i class="material-icons icon" (click)="onUndoClick()">undo</i>
-        <div class="undo_square square-small" cdkDrag [style.backgroundColor]="undocolor[0]"></div>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of undoColorDragDrop" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
-        </div>
+  <button class="btn btn-success" (click)="ClickChangeColor()">Color</button>
+
+  <div class="material">
+    <div class="material-section">
+      <i class="material-icons icon" (click)="onUndoClick()">undo</i>
+
+      <div class="large-square" *ngIf="lastUndoColor" [style.backgroundColor]="lastUndoColor"></div>
+
+      <div cdkDropList class="example-list">
+        <div class="example-box" *ngFor="let item of undocolor" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
       </div>
-  
-      <div class="material-section">
-        <!-- Redo section -->
-        <i class="material-icons icon" (click)="onRedoClick()">redo</i>
-        <div class="redo_square square-small" cdkDrag [style.backgroundColor]="redocolor[0]"></div>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of redoColorDragDrop" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
-        </div>
+    </div>
+
+    <div class="material-section">
+      <i class="material-icons icon" (click)="onRedoClick()">redo</i>
+
+      <div class="large-square" *ngIf="lastRedoColor" [style.backgroundColor]="lastRedoColor"></div>
+
+      <div cdkDropList class="example-list">
+        <div class="example-box" *ngFor="let item of redocolor" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
       </div>
     </div>
   </div>
-  
+</div>
 
-  <router-outlet />

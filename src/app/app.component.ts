@@ -1,90 +1,90 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppModule } from './app.module';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
-import { CdkDragDrop, DragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,
-    AppModule,
-    AngularMaterialModule
-  ],
+     AppModule, 
+     AngularMaterialModule
+    ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'Dev-intership';
-  squareColor: string = "lightblue"
-  clickCount: number = 0
-  undocolor: string[] = []
-  undoColorDragDrop1: string[] = []
-  undoColorDragDrop: string[] = []
-  maxUndoColor: number = 1
-  redocolor: string[] = []
-  redoColorDragDrop: string[] = []
-  colors: string[] = []
-
-
-  ClickChangeColor(): void {
-    this.clickCount++;
-    this.squareColor = this.RandomColor()
-    console.log(this.squareColor)
-  }
+  squareColor: string = 'lightblue';
+  clickCount: number = 0;
+  undocolor: string[] = [];
+  redocolor: string[] = [];
+  lastUndoColor: string | null = null;
+  lastRedoColor: string | null = null;
 
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.colors, event.previousIndex, event.currentIndex);
-
+    if (event.container.id === 'undoList') {
+      moveItemInArray(this.undocolor, event.previousIndex, event.currentIndex);
+    } else if (event.container.id === 'redoList') {
+      moveItemInArray(this.redocolor, event.previousIndex, event.currentIndex);
+    }
   }
 
+  ClickChangeColor(): void {
 
-  RandomColor() {
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)]
-    }
-    if (this.undocolor.length >= this.maxUndoColor) {
-      this.undocolor.shift();
-      this.redocolor.shift()
-
-    }
+    this.clickCount++;
+    let newColor = this.RandomColor();
 
     if (this.squareColor) {
       this.undocolor.push(this.squareColor);
-      this.redocolor.push(color)
-      this.colors.push(color)
+      this.lastUndoColor = this.squareColor;
     }
 
-    for(let i = 0 ; i <= this.undocolor.length ; i++){
-      let undo = this.undocolor[i]
-      this.undoColorDragDrop1.push(undo);
+    this.squareColor = newColor;
 
+    this.redocolor = [];
+    this.lastRedoColor = null;
+
+  }
+
+  RandomColor(): string {
+    let color: string;
+
+    color = '#';
+    let letters = '0123456789ABCDEF';
+
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
     }
-    this.undoColorDragDrop = this.undoColorDragDrop1
 
-
-
-    for(let i = 0 ; i <= this.redocolor.length ; i++){
-      let redo = this.redocolor[i]
-      this.redoColorDragDrop.push(redo);
-    }
-   
-
-
-    console.log(this.undocolor)
-    return color
+    return color;
   }
 
 
   onUndoClick() {
-    this.squareColor = this.undocolor[0]
+    if (this.undocolor.length > 0) {
+      const lastUndoColor = this.undocolor.pop() || 'lightblue';
+      if (this.squareColor) {
+        this.redocolor.push(this.squareColor);
+        this.lastRedoColor = this.squareColor;
+      }
+      this.squareColor = lastUndoColor;
+      this.lastUndoColor = this.undocolor[this.undocolor.length - 1] || null;
+
+    }
   }
 
   onRedoClick() {
-    this.squareColor = this.redocolor[0]
+    if (this.redocolor.length > 0) {
+      const lastRedoColor = this.redocolor.pop() || 'lightblue';
+      if (this.squareColor) {
+        this.undocolor.push(this.squareColor);
+        this.lastUndoColor = this.squareColor;
+      }
+      this.squareColor = lastRedoColor;
+      this.lastRedoColor = this.redocolor[this.redocolor.length - 1] || null;
+    }
   }
 }
