@@ -8,7 +8,6 @@ import { BrowserModule } from '@angular/platform-browser';
   declarations: [],
   imports: [
     CommonModule,
-    
   ]
 })
 export class AppModule { }
