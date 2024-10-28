@@ -20,6 +20,10 @@ export class AppComponent {
   lastUndoColor: string | null = null;
   lastRedoColor: string | null = null;
 
+  isOpenUndo = false;
+  isOpenRedo = false;
+
+
   trackItem(index: number, item: string): string {
     return item;
   }

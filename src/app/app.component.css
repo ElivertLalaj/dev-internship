@@ -1,60 +1,59 @@
-.container {
+.toggleButton {
+  display: none;
+}
+
+@media screen and (min-device-width: 0px) and (max-device-width: 900px) {
+  .toggleButton {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
   }
-  
-  .square {
+
+  .example-redo {
+    margin-left: 100%;
     width: 100px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    color: white;
-    border-radius: 8px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    background: #fff;
+    text-align: center;
+    padding: 10px;
   }
-  
-  .btn {
-    padding: 10px 20px;
-    font-size: 1em;
+
+  .example-redo>li {
+    list-style-type: none;
+    border-bottom: solid 1px #8b8b8b;
+    padding: 8px 0;
   }
-  
-  .material {
-    display: flex;
-    gap: 40px;
+
+  .example-redo>li:last-child {
+    border-bottom: none;
   }
-  
-  .material-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  .example {
+    width: 100px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    background: #fff;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
   }
-  
-  .icon {
-    font-size: 24px;
-    cursor: pointer;
-    margin-bottom: 10px;
+
+  .example>li {
+    list-style-type: none;
+    border-bottom: solid 1px #8b8b8b;
+    padding: 8px 0;
   }
-  
-  .large-square {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+
+  .example>li:last-child {
+    border-bottom: none;
   }
-  
-  .example-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    max-width: 200px;
-    margin-top: 10px;
+
+  #desktopColorList {
+    display: none;
   }
-  
+
+
   .example-box {
-    width: 200px;
+    width: 35%;
     height: 50px;
     justify-content: center;
     align-items: center;
@@ -65,44 +64,129 @@
     display: block;
 
   }
-  
-  
+
   .example-box {
-    padding: 20px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
+    width: 100% !important;
+    height: 50px;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    background: white;
-    font-size: 14px;
-  }
-  
-  .cdk-drag-preview {
-    border: none;
-    box-sizing: border-box;
+    color: white;
+    font-size: 0.8em;
     border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    display: block;
+
   }
-  
-  .cdk-drag-placeholder {
-    opacity: 0;
-  }
-  
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .example-box:last-child {
-    border: none;
-  }
-  
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
+
+}
+
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  color: white;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
+.material {
+  display: flex;
+  gap: 40px;
+}
+
+.material-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.large-square {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.example-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-width: 200px;
+  margin-top: 10px;
+}
+
+.example-box {
+  width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 0.8em;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+
+}
+
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

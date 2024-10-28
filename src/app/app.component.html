@@ -9,9 +9,28 @@
     <div class="material-section">
       <i class="material-icons icon" (click)="onUndoClick()">undo</i>
 
-      <div class="large-square" *ngIf="lastUndoColor" [style.backgroundColor]="lastUndoColor"></div>
+      <mat-button-toggle (click)="isOpenUndo = !isOpenUndo" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+        class="toggleButton" value="undo">
 
-      <div cdkDropList [cdkDropListData]="undocolor" (cdkDropListDropped)="drop($event)">
+        {{isOpenUndo ? "Close" : "Open"}}
+
+      </mat-button-toggle>
+
+      <ng-template class="toggleButton" cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+        [cdkConnectedOverlayOpen]="isOpenUndo">
+        <ul class="example" cdkDropList [cdkDropListData]="undocolor" (cdkDropListDropped)="drop($event)">
+          <li *ngFor="let item of undocolor; trackBy: trackItem">
+            <div class="example-box" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
+          </li>
+
+        </ul>
+      </ng-template>
+
+
+      <div class="large-square" *ngIf="lastUndoColor" [style.backgroundColor]="lastUndoColor" id="desktopColorList">
+      </div>
+
+      <div cdkDropList [cdkDropListData]="undocolor" (cdkDropListDropped)="drop($event)" id="desktopColorList">
         <div *ngFor="let item of undocolor; trackBy: trackItem">
           <div class="example-box" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
         </div>
@@ -20,10 +39,27 @@
 
     <div class="material-section">
       <i class="material-icons icon" (click)="onRedoClick()">redo</i>
+      <mat-button-toggle (click)="isOpenRedo = !isOpenRedo" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+        class="toggleButton" value="redo">
 
-      <div class="large-square" *ngIf="lastRedoColor" [style.backgroundColor]="lastRedoColor"></div>
+        {{isOpenRedo ? "Close" : "Open"}}
 
-      <div cdkDropList [cdkDropListData]="redocolor" (cdkDropListDropped)="drop($event)">
+      </mat-button-toggle>
+
+      <ng-template class="toggleButton" cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+        [cdkConnectedOverlayOpen]="isOpenRedo">
+        <ul class="example-redo" cdkDropList [cdkDropListData]="redocolor" (cdkDropListDropped)="drop($event)">
+          <li *ngFor="let item of redocolor; trackBy: trackItem">
+            <div class="example-box" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
+          </li>
+
+        </ul>
+      </ng-template>
+
+      <div class="large-square" *ngIf="lastRedoColor" [style.backgroundColor]="lastRedoColor" id="desktopColorList">
+      </div>
+
+      <div cdkDropList [cdkDropListData]="redocolor" (cdkDropListDropped)="drop($event)" id="desktopColorList">
         <div *ngFor="let item of redocolor; trackBy: trackItem">
           <div class="example-box" cdkDrag [style.backgroundColor]="item">{{ item }}</div>
         </div>
