@@ -27,6 +27,7 @@ export class AppComponent {
   trackItem(index: number, item: string): string {
     return item;
   }
+  
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
