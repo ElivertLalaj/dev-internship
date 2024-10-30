@@ -7,6 +7,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatSlideToggleModule,
     MatTableModule,
     OverlayModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    ScrollingModule
   ],
   exports: [
     CommonModule,
@@ -31,7 +33,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatSlideToggleModule,
     MatTableModule,
     OverlayModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    ScrollingModule
   ]
 })
 export class AngularMaterialModule { }

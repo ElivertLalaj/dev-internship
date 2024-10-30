@@ -1,10 +1,16 @@
-.toggleButton {
+.mobileDesign {
   display: none;
+}
+#desktopDesign{
+  display: block;
 }
 
 @media screen and (min-device-width: 0px) and (max-device-width: 900px) {
-  .toggleButton {
-    display: flex;
+  .mobileDesign {
+    display: block;
+  }
+  #desktopDesign{
+    display: none;
   }
 
   .example-redo {
@@ -28,13 +34,13 @@
   }
 
   .example {
-    width: 100px;
+    margin-top: 15%;
+    width: 75%;
     border: solid 1px #ccc;
     border-radius: 5px;
     background: #fff;
     text-align: center;
     padding: 10px;
-    margin: 0;
   }
 
   .example>li {
@@ -45,10 +51,6 @@
 
   .example>li:last-child {
     border-bottom: none;
-  }
-
-  #desktopColorList {
-    display: none;
   }
 
 
@@ -66,7 +68,7 @@
   }
 
   .example-box {
-    width: 100% !important;
+    width: 80% !important;
     height: 50px;
     justify-content: center;
     align-items: center;
@@ -78,8 +80,73 @@
 
   }
 
+  .overlay {
+    overflow-y: scroll;
+  scrollbar-color: pink lightblue;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+    font-size: 56px; 
+    cursor: pointer;
+    z-index: 2; 
+  }
+  
+  .close-icon:hover {
+    color: #f1f1f1; 
+  }
+  
+  .overlay-content {
+    text-align: center;
+  }
+  
+  .example {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .example-box {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    display: inline-block;
+  }
+  
+
 }
 
+section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+
+.material-icon{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
 
 
 
@@ -87,7 +154,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 }
 
 .square {
@@ -108,19 +174,22 @@
 
 .material {
   display: flex;
-  gap: 40px;
+  width: 100%;
+  justify-content: center;
 }
 
 .material-section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 50%;
 }
 
 .icon {
   font-size: 24px;
   cursor: pointer;
   margin-bottom: 10px;
+  gap: 100px;
 }
 
 .large-square {
@@ -189,4 +258,34 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; 
+}
+
+.overlay-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+    height: 100%;
+}
+
+.overlay .overlay-content i {
+  display: flex;
+  justify-content: end;
+  font-size: 40px;
+  font-weight: 100;
 }

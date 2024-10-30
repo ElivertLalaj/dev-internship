@@ -23,11 +23,21 @@ export class AppComponent {
   isOpenUndo = false;
   isOpenRedo = false;
 
+  private startX: number = 0;
+  private startY: number = 0;
+
+
+  closeUndoNav() {
+    this.isOpenUndo = false;
+  }
+
+  closeRedoNav() {
+    this.isOpenRedo = false;
+  }
 
   trackItem(index: number, item: string): string {
     return item;
   }
-  
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -60,30 +70,37 @@ export class AppComponent {
   }
 
   RandomColor(): string {
-    let color;
-    let isInvalidColor;
+    const avoidedColors: string[] = [
+      'hsl(0, 100%, 50%)',   
+      'hsl(120, 100%, 50%)', 
+      'hsl(240, 100%, 50%)', 
+      'hsl(0, 0%, 0%)',      
+      'hsl(0, 0%, 100%)'     
+    ];
 
-    do {
-      color = '#';
-      const letters = '0123456789ABCDEF';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+    const veryDarkThreshold = 25; 
+    const veryLightThreshold = 75; 
+
+    const isValidColor = (hue: number, saturation: number, lightness: number): boolean => {
+      const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+      return !avoidedColors.includes(color) && lightness >= veryDarkThreshold && lightness <= veryLightThreshold;
+    };
+
+    let color: string | null = null; 
+    let valid = false;
+
+    while (!valid) {
+      const hue = Math.floor(Math.random() * 360);
+      const saturation = Math.floor(Math.random() * 100);
+      const lightness = Math.floor(Math.random() * 100);
+      
+      if (isValidColor(hue, saturation, lightness)) {
+        color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        valid = true; 
       }
+    }
 
-      const red = parseInt(color.slice(1, 3), 16);
-      const green = parseInt(color.slice(3, 5), 16);
-      const blue = parseInt(color.slice(5, 7), 16);
-
-      const isGray = Math.abs(red - green) < 20 && Math.abs(green - blue) < 20;
-      const isWhite = red > 240 && green > 240 && blue > 240;
-      const isBlack = red < 15 && green < 15 && blue < 15;
-      const brightness = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
-      const isDark = brightness < 0.3;
-
-      isInvalidColor = isGray || isWhite || isBlack || isDark;
-    } while (isInvalidColor);
-
-    return color;
+    return color as string; 
   }
 
   onUndoClick() {
@@ -112,9 +129,49 @@ export class AppComponent {
     this.updateLargeBoxes();
   }
 
+  onTouchStart(event: TouchEvent): void {
+    this.startX = event.touches[0].clientX;
+    this.startY = event.touches[0].clientY;
+  }
+
+  onTouchEnd(event: TouchEvent, color: string, direction: 'undoToRedo' | 'redoToUndo'): void {
+    const endX = event.changedTouches[0].clientX;
+    const endY = event.changedTouches[0].clientY;
+
+    const diffX = endX - this.startX;
+    const diffY = endY - this.startY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+      if (direction === 'undoToRedo' && diffX > 0) {
+        this.swapColor(color, 'undoToRedo');
+      } else if (direction === 'redoToUndo' && diffX < 0) {
+        this.swapColor(color, 'redoToUndo');
+      }
+    }
+  }
+
+  swapColor(color: string, direction: 'undoToRedo' | 'redoToUndo') {
+    if (direction === 'undoToRedo') {
+      this.moveColor(color, this.undocolor, this.redocolor);
+      this.lastUndoColor = this.undocolor[0] || null;
+    } else if (direction === 'redoToUndo') {
+      this.moveColor(color, this.redocolor, this.undocolor);
+      this.lastRedoColor = this.redocolor[0] || null;
+    }
+  }
+
+  private moveColor(color: string, source: string[], target: string[]) {
+    const index = source.indexOf(color);
+    if (index > -1) {
+      source.splice(index, 1); 
+      target.unshift(color);  
+    }
+  }
+
   updateLargeBoxes() {
     this.lastUndoColor = this.undocolor.length > 0 ? this.undocolor[0] : null;
-
     this.lastRedoColor = this.redocolor.length > 0 ? this.redocolor[0] : null;
   }
+
+ 
 }
